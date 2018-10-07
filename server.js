@@ -5,28 +5,28 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var planet_api = require('./routes/timelapse');
 
+var port = 3000;
 
 var app = express();
 
 //View Engine
-app.set('views', path/join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.engine('html,', require('ejs',).renderfile);
+app.engine('html', require('ejs').renderFile);
 
-
-//Set Static Folder
-app.user(express.static(path.join(__dirname, 'client')));
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'client')));
 
 //Body Parser MiddleWare
-app.user(bodyParser.json());
-app.user(bodyParser.urlencoded({extended: faslse}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 //Routes
 app.use('/', index);
-app.user('/planet-api', planet_api);
+app.use('/api', planet_api);
 
 
 app.listen(port, function(){
-    console.log('Server started on port'+ port)
+    console.log('Server started on port '+ port)
 });
 
